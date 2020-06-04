@@ -16,7 +16,7 @@ function Res(){
 	this.json = (json)=>{
 		return json;
 	}
-};
+}
 
 describe("router.js",()=>{
 
