@@ -33,24 +33,22 @@ jobs:
             - run:
                 working_directory: ~/project/functions
                 name: Deploy to Firebase
-                command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
-                
-    approval-job:
-        type: approval
-        requires:
-            - build-and-test
-        filters:
-            branches:
-                only: master
+                command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN             
 
 workflows:
     build-test-and-deploy:
         jobs:
             - build-and-test
-            - approval-job
+            - hold:
+                type: approval
+                requires:
+                    - build-and-test
+                filters:
+                    branches:
+                        only: master
             - deploy-job:
                 requires:
-                    - approval-job
+                    - hold
                 filters:
                     branches:
                         only: master
