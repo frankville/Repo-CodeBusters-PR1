@@ -19,8 +19,36 @@ jobs:
             - run: 
                 working_directory: ~/project/functions
                 command: npm test
-            
+
+    deploy-job:
+        docker:
+            - image: circleci/node:10.21.0
+        steps:
+            - checkout
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "./functions/package.json" }}
+                    - v1-dependencies-
+            - run: 
+                working_directory: ~/project/functions
+                command: npm install
+            - run:
+                working_directory: ~/project/functions
+                name: Deploy to Firebase
+                command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN             
+
 workflows:
-    build-and-test:
+    build-test-and-deploy:
         jobs:
             - build-and-test
+            - hold:
+                type: approval
+                requires:
+                    - build-and-test
+            - deploy-job:
+                requires:
+                    - hold
+                # filters:
+                #     branches:
+                #         only: master
+                
