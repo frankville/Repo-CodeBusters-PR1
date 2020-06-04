@@ -7,13 +7,13 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
+                    - v1-dependencies-{{ checksum "./functions/package.json" }}
                     - v1-dependencies-
             - run: 
                 working_directory: ~/project/functions
                 command: npm install
             - save_cache:
-                key: v1-npm-deps-{{ checksum "package-lock.json" }}
+                key: v1-dependencies-{{ checksum "./functions/package.json" }}
                 paths:
                     - ./project/functions/node_modules
             - run: 
