@@ -6,13 +6,16 @@ jobs:
     
     executor:
       name: node/default
-    working_directory: ~/project/functions
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm test
+            - run: 
+                working_directory: ~/project/functions
+                command: npm install
+            - run: 
+                working_directory: ~/project/functions
+                command: npm test
 workflows:
     build-and-test:
       jobs:
