@@ -37,11 +37,11 @@ jobs:
                 
     approval-job:
         type: approval
-            requires:
-                - build-and-test
-            filters:
-                branches:
-                    only: master
+        requires:
+            - build-and-test
+        filters:
+            branches:
+                only: master
 
 workflows:
     build-test-and-deploy:
