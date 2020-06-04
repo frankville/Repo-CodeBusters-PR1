@@ -22,7 +22,7 @@ jobs:
             - persist_to_workspace:
                 root: ~/project
                 paths:
-                    - functions
+                    - ./
 
     deploy-job:
         docker:
