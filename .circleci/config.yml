@@ -46,7 +46,7 @@ workflows:
             - deploy-job:
                 requires:
                     - hold
-                # filters:
-                #     branches:
-                #         only: master
+                filters:
+                    branches:
+                        only: master
                 
