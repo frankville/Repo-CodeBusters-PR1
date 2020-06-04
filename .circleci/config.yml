@@ -20,7 +20,7 @@ jobs:
                 working_directory: ~/project/functions
                 command: npm test
             - persist_to_workspace:
-                root: project
+                root: ~/project
                 paths:
                     - functions
 
