@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout
       - node/with-cache:
+          working_directory: ~/project/functions
           steps:
             - run: 
                 working_directory: ~/project/functions
