@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout
       - node/with-cache:
+          working_directory: ~/functions
           steps:
             - run: npm install
             - run: npm test
