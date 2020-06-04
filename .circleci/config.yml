@@ -20,16 +20,18 @@ jobs:
                 working_directory: ~/project/functions
                 command: npm test
             - persist_to_workspace:
-                root: workspace
+                root: project
+                paths:
+                    - functions
 
     deploy-job:
         docker:
             - image: circleci/node:10.21.0
         steps:
             - attach_workspace:
-                at: ~/workspace
+                at: ~/project
             - run:
-                working_directory: ~/workspace/project/functions
+                working_directory: ~/project/functions
                 name: Deploy to Firebase
                 command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN             
 
